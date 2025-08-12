@@ -82,76 +82,87 @@ document
 
 // Testimonial Image Animation
 function initTestimonialAnimation() {
-  const mainVideo = document.querySelector('.main-video');
-  const sideVideos = document.querySelectorAll('.side-video');
+  const mainVideo = document.querySelector('.main-video video');
+  const sideVideos = document.querySelectorAll('.side-video video');
   const leftArrow = document.querySelector('.testimonial-arrow-left');
   const rightArrow = document.querySelector('.testimonial-arrow-right');
+  const videoContainers = document.querySelectorAll('.video-container');
   
   let currentIndex = 0;
   const totalVideos = sideVideos.length + 1; // +1 for main video
 
   // Set initial state
-  mainVideo.classList.add('active');
-  sideVideos.forEach(video => video.classList.add('inactive'));
+  videoContainers[0].classList.add('active');
+  for (let i = 1; i < videoContainers.length; i++) {
+    videoContainers[i].classList.add('inactive');
+  }
+
+  // Function to pause all videos
+  function pauseAllVideos() {
+    mainVideo.pause();
+    sideVideos.forEach(video => video.pause());
+  }
 
   function updateActiveVideo(index) {
     // Reset all videos
-    mainVideo.classList.remove('active');
-    sideVideos.forEach(video => video.classList.remove('inactive'));
+    pauseAllVideos();
     
-    // Reset sizes
-    mainVideo.classList.remove('swap');
-    sideVideos.forEach(video => video.classList.remove('swap'));
+    videoContainers.forEach(container => {
+      container.classList.remove('active');
+      container.classList.remove('inactive');
+      container.classList.remove('swap');
+    });
     
     if (index === 0) {
       // Main video is active
-      mainVideo.classList.add('active');
+      videoContainers[0].classList.add('active');
+      mainVideo.play();
     } else {
       // Side video is active
-      const targetVideo = sideVideos[index - 1];
-      targetVideo.classList.add('active');
-      targetVideo.classList.add('swap');
-      mainVideo.classList.add('swap');
+      const targetContainer = videoContainers[index];
+      targetContainer.classList.add('active');
+      targetContainer.classList.add('swap');
+      videoContainers[0].classList.add('swap');
+      sideVideos[index - 1].play();
     }
     
     currentIndex = index;
     
     // Update mobile view - show only active video
     if (window.innerWidth <= 480) {
-      // Hide all videos first
-      mainVideo.style.display = 'none';
-      sideVideos.forEach(video => video.style.display = 'none');
+      // Hide all video containers first
+      videoContainers.forEach(container => {
+        container.style.display = 'none';
+      });
       
-      // Show only the active video
+      // Show only the active video container
       if (index === 0) {
-        mainVideo.style.display = 'block';
-        mainVideo.style.margin = '0 auto';
+        videoContainers[0].style.display = 'block';
+        videoContainers[0].style.margin = '0 auto';
       } else {
-        sideVideos[index - 1].style.display = 'block';
-        sideVideos[index - 1].style.margin = '0 auto';
+        videoContainers[index].style.display = 'block';
+        videoContainers[index].style.margin = '0 auto';
       }
     } else {
       // Desktop view - show all videos
-      mainVideo.style.display = 'block';
-      mainVideo.style.margin = '';
-      sideVideos.forEach(video => {
-        video.style.display = 'block';
-        video.style.margin = '';
+      videoContainers.forEach(container => {
+        container.style.display = 'block';
+        container.style.margin = '';
       });
     }
   }
 
-  // Add click event to main video
-  mainVideo.addEventListener('click', function() {
+  // Add click event to main video container
+  videoContainers[0].addEventListener('click', function() {
     updateActiveVideo(0);
   });
 
-  // Add click events to side videos
-  sideVideos.forEach((sideVideo, index) => {
-    sideVideo.addEventListener('click', function() {
-      updateActiveVideo(index + 1);
+  // Add click events to side video containers
+  for (let i = 1; i < videoContainers.length; i++) {
+    videoContainers[i].addEventListener('click', function() {
+      updateActiveVideo(i);
     });
-  });
+  }
 
   // Left arrow click handler
   leftArrow.addEventListener('click', function() {
