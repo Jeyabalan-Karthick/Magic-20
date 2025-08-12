@@ -783,9 +783,7 @@ video.testimonial-img::-webkit-media-controls {
   border-radius: 0 0 24px 24px;
 }
 
-video.testimonial-img::-webkit-media-controls-panel {
-  background: rgba(0, 0, 0, 0.3);
-}
+
 
 /* Video container styling */
 .video-container {
