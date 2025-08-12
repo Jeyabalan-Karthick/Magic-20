@@ -524,8 +524,10 @@ body {
 
 /* Section Styles */
 .section {
-  padding: 80px 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
+
 
 .section-black {
   background-color: black;
@@ -1058,15 +1060,15 @@ video.testimonial-img::-webkit-media-controls-panel {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: black;
 }
 
 .faq-answer {
   padding: 0 24px 24px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   color: #949494;
 }
 
