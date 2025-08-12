@@ -989,7 +989,6 @@ video.testimonial-img::-webkit-media-controls {
 
 .speaker-image {
   width: 100%;
-  height: 490px;
   object-fit: cover;
   border-radius: 8px;
 }
