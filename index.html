@@ -236,9 +236,21 @@
     <!-- Why Attend Section -->
     <section class="section section-black">
       <div class="container">
-        <h2 class="text-4xl font-bold text-center mb-20">
+        <h2 class="why-attend-title text-4xl font-bold text-center mb-20">
           Why Should You Attend This Program?
         </h2>
+        <style>
+          .why-attend-title {
+            font-size: 2.25rem; /* 36px, same as text-4xl */
+            font-weight: 700;
+          }
+          @media (max-width: 500px) {
+            .why-attend-title {
+              font-size: 1.25rem; /* 20px, matches guest lectures on small screens */
+              font-weight: 600;
+            }
+          }
+        </style>
 
         <div class="why-attend-content">
           <!-- Certificate Image -->
