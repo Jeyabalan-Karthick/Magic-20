@@ -16,8 +16,164 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
+    <style>
+      /* Simple modal overlay for popup */
+      .modal-popup-overlay {
+        position: fixed;
+        z-index: 9999;
+        left: 0; top: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.65);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s;
+      }
+      .modal-popup-overlay.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .modal-popup-content {
+        background: #fff;
+        border-radius: 16px;
+        max-width: 400px;
+        width: 95vw;
+        padding: 24px 18px 18px 18px;
+        position: relative;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        animation: popupIn 0.3s;
+      }
+      @keyframes popupIn {
+        from { transform: scale(0.95); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .modal-popup-content .close-modal {
+        position: absolute;
+        top: 10px; right: 16px;
+        font-size: 2rem;
+        color: #888;
+        cursor: pointer;
+        z-index: 2;
+        line-height: 1;
+      }
+      .modal-popup-content h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #2563eb;
+        text-align: center;
+      }
+      .modal-popup-content .form-group {
+        margin-bottom: 12px;
+      }
+      .modal-popup-content label {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+      .modal-popup-content input[type="text"],
+      .modal-popup-content input[type="email"],
+      .modal-popup-content input[type="tel"] {
+        width: 100%;
+        height: 32px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+        font-size: 1rem;
+        margin-top: 2px;
+      }
+      .modal-popup-content .submit-btn {
+        padding: 8px 16px;
+        font-size: 1rem;
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 8px;
+        width: 100%;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+      .modal-popup-content .submit-btn:hover {
+        background: #1d4ed8;
+      }
+      .modal-popup-content .required {
+        color: #e11d48;
+      }
+      @media (max-width: 500px) {
+        .modal-popup-content {
+          padding: 14px 4vw 10px 4vw;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- Registration Popup Modal (shows on page load) -->
+    <div id="registration-popup-modal" class="modal-popup-overlay">
+      <div class="modal-popup-content">
+        <span class="close-modal" id="close-registration-popup" title="Close">&times;</span>
+        <h2>Registration Form</h2>
+        <form id="registration-popup-form" enctype="multipart/form-data" autocomplete="off">
+          <div class="form-group">
+            <label for="popup-name">Name <span class="required">*</span></label>
+            <input type="text" id="popup-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="popup-email">Email <span class="required">*</span></label>
+            <input type="email" id="popup-email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="popup-phone">Contact <span class="required">*</span></label>
+            <input type="tel" id="popup-phone" name="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="popup-company">Business <span class="required">*</span></label>
+            <input type="text" id="popup-company" name="company" required>
+          </div>
+          <div class="form-group">
+            <label for="popup-city">City <span class="required">*</span></label>
+            <input type="text" id="popup-city" name="city" required>
+          </div>
+          <button type="submit" class="submit-btn">Send</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      // Prevent background scroll when modal is open
+      document.body.style.overflow = 'hidden';
+
+      // Show modal on page load
+      document.getElementById('registration-popup-modal').style.display = 'flex';
+
+      // Close modal logic
+      document.getElementById('close-registration-popup').onclick = function() {
+        document.getElementById('registration-popup-modal').classList.add('hide');
+        setTimeout(function() {
+          document.getElementById('registration-popup-modal').style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }, 200);
+      };
+
+      // Optional: close on overlay click (not on modal content)
+      document.getElementById('registration-popup-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          document.getElementById('close-registration-popup').click();
+        }
+      });
+
+      // Optional: handle form submit (AJAX or just close modal for demo)
+      document.getElementById('registration-popup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // You can add AJAX here to send data
+        // For now, just close the modal and show a thank you
+        document.querySelector('.modal-popup-content').innerHTML = '<h2 style="color:#2563eb;text-align:center;">Thank you for registering!</h2><p style="text-align:center;">We have received your details.</p>';
+        setTimeout(function() {
+          document.getElementById('registration-popup-modal').classList.add('hide');
+          setTimeout(function() {
+            document.getElementById('registration-popup-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }, 800);
+        }, 1200);
+      });
+    </script>
 
     <!-- Fixed Countdown Header -->
     <div class="fixed-countdown-header">
@@ -809,4 +965,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
