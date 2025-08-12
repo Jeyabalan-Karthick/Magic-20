@@ -2,12 +2,19 @@
 lucide.createIcons();
 
 // Countdown Timer
-let timeLeft = {
-  days: 0,
-  hours: 0,
-  minutes: 17,
-  seconds: 42,
-};
+// Set countdown to 23/08/2025 from today (12/08/2025)
+const targetDate = new Date(2025, 7, 23, 0, 0, 0); // Months are 0-indexed: 7 = August
+function getTimeLeft() {
+  const now = new Date();
+  let diff = targetDate - now;
+  if (diff < 0) diff = 0;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+  return { days, hours, minutes, seconds };
+}
+let timeLeft = getTimeLeft();
 
 function updateCountdown() {
   // Update fixed header countdown
@@ -70,15 +77,6 @@ function toggleFaq(index) {
     openFaq = index;
   }
 }
-
-// Register button click handlers
-document
-  .querySelectorAll(".register-btn, .register-btn-blue, .fixed-register-btn, .hero-cta-btn")
-  .forEach((button) => {
-    button.addEventListener("click", function () {
-      alert("Registration functionality would be implemented here!");
-    });
-  });
 
 // Testimonial Image Animation
 function initTestimonialAnimation() {
@@ -209,4 +207,98 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+
+  initModal();
+});
+
+// Modal functionality
+function initModal() {
+  const modal = document.getElementById('register-modal');
+  const openModalBtn = document.getElementById('open-register-form');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const registrationForm = document.getElementById('registration-form');
+  
+  // Open modal when register button is clicked
+  openModalBtn.addEventListener('click', function() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  });
+  
+  // Close modal when X is clicked
+  closeModalBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+  });
+  
+  // Close modal when clicking outside the modal content
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  });
+  
+  // Handle form submission
+  registrationForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Create FormData object to handle file uploads
+    const formData = new FormData(registrationForm);
+    
+    // Send email using FormData
+    sendFormDataByEmail(formData);
+  });
+}
+
+// Function to handle form submission and email sending
+function sendFormDataByEmail(formData) {
+  // In a real implementation, you would use a server-side script or service
+  // to handle the form submission and email sending with the image attachment
+  // For this example, we'll simulate a successful submission
+
+  // Normally, you would use fetch or XMLHttpRequest to send the data to a server
+  // Example:
+  /*
+  fetch('your-server-endpoint', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Registration successful
+    document.getElementById('register-modal').style.display = 'none';
+    document.getElementById('registration-form').reset();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // There was an error processing your registration. Please try again.
+  });
+  */
+  
+  // For demonstration purposes:
+  setTimeout(function() {
+    // Registration successful! Your details have been sent to dhinesh.m@magic20.co.in
+    document.getElementById('register-modal').style.display = 'none';
+    document.getElementById('registration-form').reset();
+    document.body.style.overflow = 'auto';
+  }, 1500);
+}
+
+// Update the existing register button click handlers
+document
+  .querySelectorAll(".register-btn, .register-btn-blue, .fixed-register-btn, .hero-cta-btn")
+  .forEach((button) => {
+    button.addEventListener("click", function () {
+      // Open the registration modal instead of showing an alert
+      const modal = document.getElementById('register-modal');
+      if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+// Initialize modal functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  initModal();
 });

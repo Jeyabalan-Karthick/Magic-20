@@ -608,7 +608,40 @@ body {
   height: 400px;
   border-radius: 16px;
   overflow: hidden;
-  background-image: url('./images/Rectangle 10.png');
+  background-image: url('./images/WhatsApp\ Image\ 2025-06-13\ at\ 4.45.59\ PM.jpeg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.program-card2 {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-image: url('./images/WhatsApp\ Image\ 2025-06-10\ at\ 12.09.38\ PM.jpeg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.program-card3 {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-image: url('./images/WhatsApp\ Image\ 2025-06-13\ at\ 4.45.17\ PM.jpeg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.program-card4 {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-image: url('./images/WhatsApp\ Image\ 2025-06-13\ at\ 4.45.59\ PM.jpeg');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -1043,6 +1076,104 @@ video.testimonial-img::-webkit-media-controls-panel {
 
 .chevron.rotated {
   transform: rotate(180deg);
+}
+
+/* Registration Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #0056b3, #00a0e9);
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  position: relative;
+}
+
+.close-modal {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
+.close-modal:hover {
+  color: #ccc;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group input[type="file"] {
+  background-color: white;
+  padding: 8px;
+}
+
+.required {
+  color: #ff6b6b;
+}
+
+.submit-btn {
+  background-color: #ff7700;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #e56b00;
+}
+
+.register-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 /* Footer */

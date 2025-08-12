@@ -43,21 +43,13 @@
             <span class="countdown-label">SEC</span>
           </div>
         </div>
-        <button class="fixed-register-btn">Register Now</button>
       </div>
     </div>
 
     <!-- Hero Section -->
     <div class="hero-section">
       <!-- Navigation Bar -->
-      <div class="hero-nav">
-        <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/ddd2c4d77559ee77ed5b24e0a09d9424702eb3bf?width=262"
-          alt="Magic 20 Logo"
-          class="hero-logo"
-        />
-        <button class="hero-cta-btn">Register Now</button>
-      </div>
+   
 
       <!-- Hero Content -->
       <div class="hero-content">
@@ -81,7 +73,7 @@
         </div>
         <div class="hero-title">Krea Leadership Program</div>
         <div class="hero-subtitle">3-Day Executive Education Program</div>
-        <button class="hero-cta-btn">Register Now</button>
+        <a href="https://pages.razorpay.com/krea25aug" class="hero-cta-btn" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">Register Now</a>
       </div>
     </div>
 
@@ -133,9 +125,16 @@
             </div>
 
             <div class="register-container">
-              <button class="register-btn-blue">
-                Register Now
-              </button>
+              <a 
+                href="https://rzp.io/rzp/kpre22" 
+                class="register-btn-blue" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style="text-decoration: none;"
+              >
+                Pre-Book Your Slot
+              </a>
+            </div>
             </div>
           </div>
         </div>
@@ -157,35 +156,33 @@
             <div class="program-card-overlay"></div>
             <div class="program-card-content">
               <p class="text-lg font-bold text-white">
-                AMAZING <span class="font-bold">IDEAS</span> AND<br>
-                EMPOWERING <span class="font-bold">BUSINESS</span> STRATEGIES
+                MONDELEZ <span class="font-bold">INTERNATIONAL</span>
               </p>
             </div>
           </div>
-          <div class="program-card">
+          <div class="program-card2">
             <div class="program-card-overlay"></div>
             <div class="program-card-content">
               <p class="text-lg font-bold text-white">
-                AMAZING <span class="font-bold">IDEAS</span> AND<br>
-                EMPOWERING <span class="font-bold">BUSINESS</span> STRATEGIES
+                 <span class="font-bold">VISIT</span> ISRO<br>
+                LAUNCHPAD <span class="font-bold">
               </p>
             </div>
           </div>
-          <div class="program-card">
+          <div class="program-card3">
             <div class="program-card-overlay"></div>
             <div class="program-card-content">
               <p class="text-lg font-bold text-white">
-                AMAZING <span class="font-bold">IDEAS</span> AND<br>
-                EMPOWERING <span class="font-bold">BUSINESS</span> STRATEGIES
+                CLASSES <span class="font-bold">AND</span> DISCUSSION<br>
+                WITH <span class="font-bold">INDUSTRIAL</span> EXPERTED PROFESSOR
               </p>
             </div>
           </div>
-          <div class="program-card">
+          <div class="program-card4 ">
             <div class="program-card-overlay"></div>
             <div class="program-card-content">
               <p class="text-lg font-bold text-white">
-                AMAZING <span class="font-bold">IDEAS</span> AND<br>
-                EMPOWERING <span class="font-bold">BUSINESS</span> STRATEGIES
+                MONDELEZ <span class="font-bold">INTERNATIONAL</span>
               </p>
             </div>
           </div>
@@ -253,7 +250,6 @@
         </div>
       </div>
     </section>
-
     <!-- Event Details Section -->
     <section class="section section-black">
       <div class="container">
@@ -314,6 +310,52 @@
             />
             <h3>To Know More</h3>
             <p>Email: support@magic20.co.in</p>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; width: 100%; margin: 2rem 0;">
+            <button id="open-register-form" class="register-btn-blue" onclick="document.getElementById('register-modal-event').style.display='block';document.body.style.overflow='hidden';">Register Now</button>
+        </div>
+
+        <!-- Registration Section - Add this before the FAQ section -->
+        <!-- Registration Modal -->
+        <div id="register-modal-event" class="modal">
+          <div class="modal-content" style="max-width: 400px; padding: 20px;">
+            <span class="close-modal">&times;</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Registration Form</h2>
+            <form id="registration-form" enctype="multipart/form-data" style="font-size: 0.9rem;">
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="name" style="font-size: 0.9rem;">Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="email" style="font-size: 0.9rem;">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="phone" style="font-size: 0.9rem;">Contact <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="company" style="font-size: 0.9rem;">Business <span class="required">*</span></label>
+                <input type="text" id="company" name="company" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="job-title" style="font-size: 0.9rem;">Job Title <span class="required">*</span></label>
+                <input type="text" id="job-title" name="job-title" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="city" style="font-size: 0.9rem;">City <span class="required">*</span></label>
+                <input type="text" id="city" name="city" required style="height: 32px; padding: 4px 8px;">
+              </div>
+            
+              <button type="submit" class="submit-btn" style="padding: 8px 16px; font-size: 0.9rem;">Send</button>
+            </form>
           </div>
         </div>
 
@@ -404,6 +446,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- FAQ and Footer Section -->
     <section class="section bg-footer-gradient">
