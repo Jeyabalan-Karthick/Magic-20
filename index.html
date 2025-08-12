@@ -317,11 +317,10 @@
             <button id="open-register-form" class="register-btn-blue" onclick="document.getElementById('register-modal-event').style.display='block';document.body.style.overflow='hidden';">Register Now</button>
         </div>
 
-        <!-- Registration Section - Add this before the FAQ section -->
         <!-- Registration Modal -->
         <div id="register-modal-event" class="modal">
           <div class="modal-content" style="max-width: 400px; padding: 20px;">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" onclick="document.getElementById('register-modal-event').style.display='none';document.body.style.overflow='auto';">&times;</span>
             <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Registration Form</h2>
             <form id="registration-form" enctype="multipart/form-data" style="font-size: 0.9rem;">
               <div class="form-group" style="margin-bottom: 12px;">
@@ -361,47 +360,37 @@
 
         <!-- Speakers Section -->
         <div class="text-center mb-20">
-          <h2 class="text-4xl font-semibold mb-4">Our Honorable Speakers</h2>
+          <h2 class="text-4xl font-semibold mb-4">Our Guest Lectures</h2>
           <p class="text-4xl font-semibold mb-16">
-            Learn from International & National Coaches
-          </p>
+            For 3 day Krea Leadership Program          </p>
 
           <div class="speakers-grid">
             <div class="speaker-card">
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/ca4824ebe669693fc1c5736330f9973aec56f2d1?width=980"
+                src="images/WhatsApp Image 2025-08-12 at 11.37.50_be6d8180.jpg"
                 alt="Vijay Kumar"
                 class="speaker-image"
               />
               <div class="speaker-overlay bg-black-overlay"></div>
-              <div class="speaker-info">
-                <h3 class="text-3xl font-bold">Vijay Kumar</h3>
-                <p class="text-3xl font-bold">Speaker</p>
-              </div>
+             
             </div>
             <div class="speaker-card">
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/05943829fe4b970581813c310e225709c3edbe7c?width=980"
+                src="images/WhatsApp Image 2025-08-12 at 11.37.51_066519de.jpg"
                 alt="vijay Kumar"
                 class="speaker-image"
               />
               <div class="speaker-overlay bg-black-overlay"></div>
-              <div class="speaker-info">
-                <h3 class="text-3xl font-bold">vijay Kumar</h3>
-                <p class="text-3xl font-bold">Speaker</p>
-              </div>
+             
             </div>
             <div class="speaker-card">
               <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/9e490ddb3ec2e3f5c9c86f3108f5affec98a8705?width=980"
+                src="images/WhatsApp Image 2025-08-12 at 11.37.51_a9f53d85.jpg"
                 alt="Vijaya Kumar"
                 class="speaker-image"
               />
               <div class="speaker-overlay bg-black-overlay"></div>
-              <div class="speaker-info">
-                <h3 class="text-3xl font-bold">Vijaya Kumar</h3>
-                <p class="text-3xl font-bold">Speaker</p>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -414,34 +403,160 @@
             excellence
           </p>
 
-          <div class="faculty-grid">
-            <div class="faculty-card">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/f20724fb8cff758a510ce3a508855ef46fe7ee12?width=778"
-                alt="Vijaya Kumar R"
-                class="faculty-image"
-              />
-              <h3 class="text-3xl font-bold text-black mb-2">Vijaya Kumar R</h3>
-              <p class="text-3xl font-semibold text-black">Creative Producer</p>
+          <!-- Faculty Carousel -->
+          <div class="faculty-carousel-wrapper" style="overflow: hidden; width: 100%; position: relative;">
+            <div class="faculty-carousel" id="facultyCarousel" style="display: flex; gap: 32px; transition: transform 0.5s linear;">
+              <div class="faculty-card">
+                <img
+                  src="images/image.png"
+                  alt="Vijaya Kumar R"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Bharath Sundaram</h3>
+                <p class="text-3xl font-semibold text-black">Creative Producer</p>
+              </div>
+              <div class="faculty-card">
+                <img
+                  src="images/Debasish-Mishra.png"
+                  alt="Debasish Mishra"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Debasish Mishra</h3>
+                <p class="text-3xl font-semibold text-black">Creative Producer</p>
+              </div>
+              <div class="faculty-card">
+                <img
+                  src="images/lakshmi-kumar.png"
+                  alt="Lakshmi Kumar"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Lakshmi Kumar</h3>
+                <p class="text-3xl font-semibold text-black">Creative Producer</p>
+              </div>
+              <!-- Additional Faculty Cards -->
+              <div class="faculty-card">
+                <img
+                  src="images/vijaya_c.jpg"
+                  alt="Ananya Sharma"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Vijaya C</h3>
+                <p class="text-3xl font-semibold text-black">Business Strategist</p>
+              </div>
+              <div class="faculty-card">
+                <img
+                  src="images/Satya-Saminadan-R-S-01.png"
+                  alt="Rahul Mehta"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Satya Saminadan</h3>
+                <p class="text-3xl font-semibold text-black">Leadership Coach</p>
+              </div>
+              <div class="faculty-card">
+                <img
+                  src="images/image2.png"
+                  alt="Priya Iyer"
+                  class="faculty-image"
+                />
+                <h3 class="text-3xl font-bold text-black mb-2">Magic 20</h3>
+                <p class="text-3xl font-semibold text-black">Innovation Expert</p>
+              </div>
             </div>
-            <div class="faculty-card">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/f20724fb8cff758a510ce3a508855ef46fe7ee12?width=778"
-                alt="Vijaya Kumar R"
-                class="faculty-image"
-              />
-              <h3 class="text-3xl font-bold text-black mb-2">Vijaya Kumar R</h3>
-              <p class="text-3xl font-semibold text-black">Creative Producer</p>
-            </div>
-            <div class="faculty-card">
-              <img
-                src="https://api.builder.io/api/v1/image/assets/TEMP/f20724fb8cff758a510ce3a508855ef46fe7ee12?width=778"
-                alt="Vijaya Kumar R"
-                class="faculty-image"
-              />
-              <h3 class="text-3xl font-bold text-black mb-2">Vijaya Kumar R</h3>
-              <p class="text-3xl font-semibold text-black">Creative Producer</p>
-            </div>
+          </div>
+          <script>
+            // Simple continuous carousel logic
+            const carousel = document.getElementById('facultyCarousel');
+            let isPaused = false;
+            let scrollAmount = 0;
+            let cardWidth = 0;
+            let intervalId;
+
+            function startCarousel() {
+              intervalId = setInterval(() => {
+                if (!isPaused) {
+                  if (cardWidth === 0) {
+                    // Get width of first card (including margin)
+                    const firstCard = carousel.children[0];
+                    cardWidth = firstCard.offsetWidth + 32; // 32px gap
+                  }
+                  scrollAmount += 1;
+                  carousel.style.transform = `translateX(-${scrollAmount}px)`;
+
+                  // When the first card is fully out of view, move it to the end
+                  if (scrollAmount >= cardWidth) {
+                    carousel.appendChild(carousel.children[0]);
+                    carousel.style.transition = 'none';
+                    carousel.style.transform = `translateX(0px)`;
+                    scrollAmount = 0;
+                    // Force reflow to reset transition
+                    void carousel.offsetWidth;
+                    carousel.style.transition = 'transform 0.5s linear';
+                  }
+                }
+              }, 16); // ~60fps
+            }
+
+            carousel.addEventListener('mouseenter', () => {
+              isPaused = true;
+            });
+            carousel.addEventListener('mouseleave', () => {
+              isPaused = false;
+            });
+
+            // Duplicate cards for seamless looping
+            (function duplicateForLoop() {
+              const cards = Array.from(carousel.children);
+              cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                carousel.appendChild(clone);
+              });
+            })();
+
+            startCarousel();
+          </script>
+          <style>
+            .faculty-carousel-wrapper {
+              max-width: 1200px;
+              margin: 0 auto 2rem auto;
+            }
+            .faculty-carousel {
+              will-change: transform;
+              align-items: stretch;
+            }
+            .faculty-card {
+              min-width: 260px;
+              max-width: 260px;
+              background: #fff;
+              border-radius: 16px;
+              box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+              padding: 24px 16px;
+              text-align: center;
+              flex-shrink: 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .faculty-image {
+              width: 120px;
+              height: 120px;
+              object-fit: cover;
+              border-radius: 50%;
+              margin-bottom: 16px;
+              border: 3px solid #e5e7eb;
+            }
+            @media (max-width: 768px) {
+              .faculty-card {
+                min-width: 180px;
+                max-width: 180px;
+                padding: 12px 4px;
+              }
+              .faculty-image {
+                width: 80px;
+                height: 80px;
+              }
+            }
+          </style>
+        
           </div>
         </div>
       </div>
@@ -449,82 +564,84 @@
 
 
 
-    <!-- FAQ and Footer Section -->
-    <section class="section bg-footer-gradient">
-      <div class="container">
-        <!-- FAQ Section -->
-        <div class="faq-container">
-          <h2 class="text-5xl font-semibold text-center mb-8 text-white">
-            Frequently Asked Question
-          </h2>
-          <p class="text-2xl font-semibold text-center mb-16 text-white">
-            Got questions about how Magic 20 Tamil works? We've got you covered.
-          </p>
+   <!-- FAQ and Footer Section -->
+   <section class="section bg-footer-gradient">
+    <div class="container">
+      <!-- FAQ Section -->
+      <div class="faq-container">
+        <h2 class="text-5xl font-semibold text-center mb-8 text-white">
+          Frequently Asked Question
+        </h2>
+        <p class="text-2xl font-semibold text-center mb-16 text-white">
+          Got questions about how Magic 20 Tamil works? We've got you covered.
+        </p>
 
-          <div>
-            <div class="faq-item">
-              <button class="faq-question" onclick="toggleFaq(0)">
-                <span>What is Magic 20 Tamil?</span>
-                <i data-lucide="chevron-down" class="chevron" id="chevron-0"></i>
-              </button>
-              <div class="faq-answer hidden" id="answer-0">
-                <p>
-                  Magic 20 Tamil is a Tamil audiobook platform offering short-form
-                  and full-length audio content across categories like motivation,
-                  business, and lifestyle.
-                </p>
-              </div>
+        <div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(0)">
+              <span>What is the 3-Day Mini MBA Executive Program?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-0"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-0">
+              <p>
+                A condensed, high-impact leadership and business learning experience for entrepreneurs, startup founders, and corporate professionals.
+              </p>
             </div>
-            <div class="faq-item">
-              <button class="faq-question" onclick="toggleFaq(1)">
-                <span>What is Magic 20 Tamil?</span>
-                <i data-lucide="chevron-down" class="chevron" id="chevron-1"></i>
-              </button>
-              <div class="faq-answer hidden" id="answer-1">
-                <p>Additional FAQ content would go here.</p>
-              </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(1)">
+              <span>Are payment plans available?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-1"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-1">
+              <p>Yes, flexible payment options are available to make participation easier.
+              </p>
             </div>
-            <div class="faq-item">
-              <button class="faq-question" onclick="toggleFaq(2)">
-                <span>What is Magic 20 Tamil?</span>
-                <i data-lucide="chevron-down" class="chevron" id="chevron-2"></i>
-              </button>
-              <div class="faq-answer hidden" id="answer-2">
-                <p>Additional FAQ content would go here.</p>
-              </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(2)">
+              <span> Will this program really make an impact in just 3 days?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-2"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-2">
+              <p>Yes — the program is designed for maximum impact with practical strategies, expert mentoring, and peer learning that you can apply immediately.</p>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Map -->
-        <div class="footer-map">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.405180597118!2d80.2167025779508!3d13.073487954379639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526766b52ccb35%3A0xfd5dcaede8725ac4!2sMagic%2020%20Tamil!5e0!3m2!1sen!2sin!4v1754696406077!5m2!1sen!2sin" 
-            width="100%" 
-            height="450" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+      <!-- Map -->
+      <div class="footer-map">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.405180597118!2d80.2167025779508!3d13.073487954379639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526766b52ccb35%3A0xfd5dcaede8725ac4!2sMagic%2020%20Tamil!5e0!3m2!1sen!2sin!4v1754696406077!5m2!1sen!2sin" 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <!-- Contact Bar -->
+      <div class="contact-bar">
+        <div class="contact-item">
+          <i data-lucide="mail" class="contact-icon"></i>
+          <span class="contact-text">support@magic20.co.in</span>
         </div>
-
-        <!-- Contact Bar -->
-        <div class="contact-bar">
-          <div class="contact-item">
-            <i data-lucide="mail" class="contact-icon"></i>
-            <span class="contact-text">support@magic20.co.in</span>
-          </div>
-          <div class="contact-item">
-            <i data-lucide="phone" class="contact-icon"></i>
-            <span class="contact-text">+91 91769 63399</span>
-          </div>
-          </div>
+        <div class="contact-item">
+          <i data-lucide="phone" class="contact-icon"></i>
+          <span class="contact-text">+91 91769 63399</span>
         </div>
-    </section>
+        </div>
+      </div>
+  </section>
 
-    <!-- External JavaScript -->
-    <script src="script.js"></script>
-  </body>
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
 </html>
 
