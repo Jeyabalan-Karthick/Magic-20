@@ -779,7 +779,6 @@ video.testimonial-img {
 
 /* Video controls styling */
 video.testimonial-img::-webkit-media-controls {
-  background: rgba(0, 0, 0, 0.3);
   border-radius: 0 0 24px 24px;
 }
 
@@ -853,7 +852,6 @@ video.testimonial-img::-webkit-media-controls {
 .side-img {
   width: 80px;
   height: 400px;
-  filter: brightness(0.5);
 }
 
 .testimonial-img.active {
