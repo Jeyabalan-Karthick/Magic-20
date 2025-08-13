@@ -4,6 +4,11 @@ lucide.createIcons();
 // Countdown Timer
 // Set countdown to 23/08/2025 from today (12/08/2025)
 const targetDate = new Date(2025, 7, 23, 0, 0, 0); // Months are 0-indexed: 7 = August
+
+function padZero(num) {
+  return num < 10 ? '0' + num : num;
+}
+
 function getTimeLeft() {
   const now = new Date();
   let diff = targetDate - now;
@@ -18,16 +23,16 @@ let timeLeft = getTimeLeft();
 
 function updateCountdown() {
   // Update fixed header countdown
-  document.getElementById("topDays").textContent = timeLeft.days;
-  document.getElementById("topHours").textContent = timeLeft.hours;
-  document.getElementById("topMinutes").textContent = timeLeft.minutes;
-  document.getElementById("topSeconds").textContent = timeLeft.seconds;
+  document.getElementById("topDays").textContent = padZero(timeLeft.days);
+  document.getElementById("topHours").textContent = padZero(timeLeft.hours);
+  document.getElementById("topMinutes").textContent = padZero(timeLeft.minutes);
+  document.getElementById("topSeconds").textContent = padZero(timeLeft.seconds);
 
   // Update hero countdown
-  document.getElementById("heroDays").textContent = timeLeft.days;
-  document.getElementById("heroHours").textContent = timeLeft.hours;
-  document.getElementById("heroMinutes").textContent = timeLeft.minutes;
-  document.getElementById("heroSeconds").textContent = timeLeft.seconds;
+  document.getElementById("heroDays").textContent = padZero(timeLeft.days);
+  document.getElementById("heroHours").textContent = padZero(timeLeft.hours);
+  document.getElementById("heroMinutes").textContent = padZero(timeLeft.minutes);
+  document.getElementById("heroSeconds").textContent = padZero(timeLeft.seconds);
 
   // Decrement timer
   if (timeLeft.seconds > 0) {
