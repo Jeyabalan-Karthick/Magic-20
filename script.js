@@ -302,3 +302,91 @@ document
 document.addEventListener('DOMContentLoaded', function() {
   initModal();
 });
+
+
+// Prevent background scroll when modal is open
+document.body.style.overflow = 'hidden';
+
+// Show modal on page load
+document.getElementById('registration-popup-modal').style.display = 'flex';
+
+// Close modal logic
+document.getElementById('close-registration-popup').onclick = function() {
+  document.getElementById('registration-popup-modal').classList.add('hide');
+  setTimeout(function() {
+    document.getElementById('registration-popup-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }, 200);
+};
+
+// Optional: close on overlay click (not on modal content)
+document.getElementById('registration-popup-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    document.getElementById('close-registration-popup').click();
+  }
+});
+
+// Optional: handle form submit (AJAX or just close modal for demo)
+document.getElementById('registration-popup-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  // You can add AJAX here to send data
+  // For now, just close the modal and show a thank you
+  document.querySelector('.modal-popup-content').innerHTML = '<h2 style="color:#2563eb;text-align:center;">Thank you for registering!</h2><p style="text-align:center;">We have received your details.</p>';
+  setTimeout(function() {
+    document.getElementById('registration-popup-modal').classList.add('hide');
+    setTimeout(function() {
+      document.getElementById('registration-popup-modal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }, 800);
+  }, 1200);
+});
+
+
+const carousel = document.getElementById('facultyCarousel');
+            let isPaused = false;
+            let scrollAmount = 0;
+            let cardWidth = 0;
+            let intervalId;
+
+            function startCarousel() {
+              intervalId = setInterval(() => {
+                if (!isPaused) {
+                  if (cardWidth === 0) {
+                    // Get width of first card (including margin)
+                    const firstCard = carousel.children[0];
+                    cardWidth = firstCard.offsetWidth + 32; // 32px gap
+                  }
+                  scrollAmount += 1;
+                  carousel.style.transform = `translateX(-${scrollAmount}px)`;
+
+                  // When the first card is fully out of view, move it to the end
+                  if (scrollAmount >= cardWidth) {
+                    carousel.appendChild(carousel.children[0]);
+                    carousel.style.transition = 'none';
+                    carousel.style.transform = `translateX(0px)`;
+                    scrollAmount = 0;
+                    // Force reflow to reset transition
+                    void carousel.offsetWidth;
+                    carousel.style.transition = 'transform 0.5s linear';
+                  }
+                }
+              }, 16); // ~60fps
+            }
+
+            carousel.addEventListener('mouseenter', () => {
+              isPaused = true;
+            });
+            carousel.addEventListener('mouseleave', () => {
+              isPaused = false;
+            });
+
+            // Duplicate cards for seamless looping
+            (function duplicateForLoop() {
+              const cards = Array.from(carousel.children);
+              cards.forEach(card => {
+                const clone = card.cloneNode(true);
+                carousel.appendChild(clone);
+              });
+            })();
+
+            startCarousel();

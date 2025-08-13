@@ -1,0 +1,739 @@
+<?php
+// --------- SIMPLE SAME-PAGE MAIL HANDLER ---------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_id']) && $_POST['form_id'] === 'krea_registration') {
+    // Basic sanitization
+    $name    = trim($_POST['name'] ?? '');
+    $email   = trim($_POST['email'] ?? '');
+    $phone   = trim($_POST['phone'] ?? '');
+    $company = trim($_POST['company'] ?? '');
+    $city    = trim($_POST['city'] ?? '');
+    $hp      = trim($_POST['website'] ?? ''); // honeypot (should stay empty)
+
+    // Simple validations
+    $errors = [];
+    if ($hp !== '') { $errors[] = 'Spam detected.'; } // bot filled honeypot
+    if ($name === '' || $email === '' || $phone === '' || $company === '' || $city === '') {
+        $errors[] = 'Please fill all required fields.';
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Invalid email.';
+    }
+
+    if (empty($errors)) {
+        $to = 'dhinesh.m@magic20.co.in';
+        $subject = 'New Registration - Krea Leadership Program';
+        $body = "You have a new registration:\n\n"
+              . "Name:    {$name}\n"
+              . "Email:   {$email}\n"
+              . "Phone:   {$phone}\n"
+              . "Business: {$company}\n"
+              . "City:    {$city}\n"
+              . "Time:    " . date('Y-m-d H:i:s');
+
+        // From should be your domain to avoid spam flags
+        $domain = $_SERVER['HTTP_HOST'] ?? 'yourdomain.com';
+        $from   = "no-reply@{$domain}";
+        $headers = "From: {$from}\r\n"
+                 . "Reply-To: {$email}\r\n"
+                 . "X-Mailer: PHP/" . phpversion();
+
+        if (@mail($to, $subject, $body, $headers)) {
+            $success_msg = "Thank you! Your registration has been sent.";
+        } else {
+            $error_msg = "Sorry, we couldn't send your message. Please try again.";
+        }
+    } else {
+        $error_msg = implode(' ', $errors);
+    }
+}
+?>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Krea Leadership Program - 3-Day Executive Education Program</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* Simple modal overlay for popup */
+      
+    </style>
+  </head>
+  <body>
+    <!-- Registration Popup Modal (shows on page load) -->
+    <div id="registration-popup-modal" class="modal-popup-overlay">
+      <div class="modal-popup-content">
+        <span class="close-modal" id="close-registration-popup" title="Close">&times;</span>
+        <h2>Registration Form</h2>
+        <form id="registration-popup-form" method="POST" action="" enctype="multipart/form-data" autocomplete="off">
+  <input type="hidden" name="form_id" value="krea_registration">
+  <!-- Honeypot: keep hidden; bots often fill this -->
+  <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+  <div class="form-group">
+    <label for="popup-name">Name <span class="required">*</span></label>
+    <input type="text" id="popup-name" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="popup-email">Email <span class="required">*</span></label>
+    <input type="email" id="popup-email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label for="popup-phone">Contact <span class="required">*</span></label>
+    <input type="tel" id="popup-phone" name="phone" required>
+  </div>
+  <div class="form-group">
+    <label for="popup-city">City <span class="required">*</span></label>
+    <input type="text" id="popup-city" name="city" required>
+  </div>
+  <button type="submit" class="submit-btn">Send</button>
+</form>
+
+      </div>
+    </div>
+
+
+    <!-- Fixed Countdown Header -->
+    <div class="fixed-countdown-header">
+      <div class="countdown-container">
+        <div class="countdown-text">
+          <span class="countdown-title">Time Is Running Out</span>
+        </div>
+        <div class="countdown-timer">
+          <div class="countdown-item">
+            <span class="countdown-number" id="topDays">17</span>
+            <span class="countdown-label">DAYS</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="topHours">17</span>
+            <span class="countdown-label">HRS</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="topMinutes">17</span>
+            <span class="countdown-label">MIN</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="topSeconds">42</span>
+            <span class="countdown-label">SEC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <!-- Navigation Bar -->
+   
+
+      <!-- Hero Content -->
+      <div class="hero-content">
+        <div class="hero-countdown">
+          <div class="hero-countdown-item">
+            <div class="hero-countdown-number" id="heroDays">0</div>
+            <div class="hero-countdown-label">Days</div>
+          </div>
+          <div class="hero-countdown-item">
+            <div class="hero-countdown-number" id="heroHours">0</div>
+            <div class="hero-countdown-label">Hour</div>
+          </div>
+          <div class="hero-countdown-item">
+            <div class="hero-countdown-number" id="heroMinutes">0</div>
+            <div class="hero-countdown-label">Min</div>
+          </div>
+          <div class="hero-countdown-item">
+            <div class="hero-countdown-number" id="heroSeconds">0</div>
+            <div class="hero-countdown-label">SEC</div>
+          </div>
+        </div>
+        <div class="hero-title">Krea Leadership Program</div>
+        <div class="hero-subtitle">3-Day Executive Education Program</div>
+        <a href="https://pages.razorpay.com/krea25aug" 
+           class="hero-cta-btn" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           style="padding: 12px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; background: #FFD600; color:rgb(0, 0, 0); border: none; cursor: pointer; transition: background 0.2s; display: inline-block; text-align: center; text-decoration: none; top: 69px; position: relative;">
+          Register Now
+        </a>
+      </div>
+    </div>
+
+
+
+    <!-- Previous Program Section -->
+    <section class="section section-black">
+      <div class="container">
+        <h2 class="text-4xl font-bold text-gold-500 text-center mb-8 previous-program-title">
+          Our Previous Krea Leadership Program
+        </h2>
+        <p class="text-3xl font-bold text-center mb-16 previous-program-desc">
+          Participants brainstormed real-world business challenges
+        </p>
+ 
+
+        <div class="program-grid">
+          <div class="program-card">
+            <div class="program-card-overlay"></div>
+            <div class="program-card-content">
+              <p class="text-lg font-bold text-white">
+                MONDELEZ <span class="font-bold">INTERNATIONAL</span>
+              </p>
+            </div>
+          </div>
+          <div class="program-card2">
+            <div class="program-card-overlay"></div>
+            <div class="program-card-content">
+              <p class="text-lg font-bold text-white">
+                 <span class="font-bold">VISIT</span> ISRO<br>
+                LAUNCHPAD <span class="font-bold">
+              </p>
+            </div>
+          </div>
+          <div class="program-card3">
+            <div class="program-card-overlay"></div>
+            <<div class="program-card-content flex items-center justify-center p-4 text-center">
+              <p class="text-lg font-bold text-white">
+                CLASSES & DISCUSSION <br> WITH INDUSTRY PROFESSORS
+              </p>
+            </div>
+            
+          </div>
+        
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section section-black testimonial-section">
+      <div class="container">
+        <div class="testimonial-content">
+          <!-- Left: Text -->
+          <div class="testimonial-text">
+            <h2 class="guest-lectures-title text-4xl font-semibold mb-4 guest-lecture-heading">Testimonial</h2>
+            <p class="guest-lectures-desc text-4xl font-semibold mb-16 guest-lecture-desc">
+              Participants brainstormed<br />
+              real-world business challenges
+            </p>
+          </div>
+         
+          <!-- Right: Videos Carousel -->
+          <div class="testimonial-carousel">
+            <!-- Left Arrow -->
+            <button class="testimonial-arrow testimonial-arrow-left">
+              <span>&#8249;</span>
+            </button>
+            
+            <!-- Main Video Container -->
+            <div class="testimonial-main">
+              <div class="video-container main-video">
+                <video src="./images/CKK kera AD 1 (1).mp4" class="testimonial-img main-img" data-index="0" controls playsinline></video>
+               
+                <div class="magic-logo">
+                  <span>Magic</span>
+                </div>
+              </div>
+            </div>
+            <!-- Side Videos Container -->
+            <div class="testimonial-side-container">
+              <div class="testimonial-side">
+                <div class="video-container side-video">
+                  <video src="./images/Kera testimonial 3 (2).mp4" class="testimonial-img side-img" data-index="1" controls playsinline></video>
+                  <div class="magic-logo">
+                    <span>Magic</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="testimonial-side">
+                <div class="video-container side-video">
+                  <video src="./images/ishwariya Krea Ad.mp4" class="testimonial-img side-img" data-index="2" controls playsinline></video>
+                  <div class="magic-logo">
+                    <span>Magic</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Right Arrow -->
+            <button class="testimonial-arrow testimonial-arrow-right">
+              <span>&#8250;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <section class="section section-black">
+      <div class="container">
+        <div class="event-cards">
+          <!-- Left Card - Larger -->
+          <div class="event-card bg-blue-gradient event-card-left">
+            <!-- Event Section -->
+            <div class="event-card-item">
+              <div class="event-icon bg-lightblue-300">
+                <i data-lucide="bookmark"></i>
+              </div>
+              <div>
+                <h3>Event</h3>
+                <p>Krea Leadership<br />Program</p>
+              </div>
+            </div>
+
+            <!-- When Section -->
+            <div class="event-card-item">
+              <div class="event-icon bg-lightblue-300">
+                <i data-lucide="bookmark"></i>
+              </div>
+              <div>
+                <h3>When</h3>
+                <p>August 22 - 24</p>
+              </div>
+            </div>
+
+            <!-- Where Section -->
+            <div class="event-card-item">
+              <div class="event-icon bg-lightblue-300">
+                <i data-lucide="bookmark"></i>
+              </div>
+              <div>
+                <h3>Where</h3>
+                <p class="underline">Krea University, Sri City,<br />Andhra Pradesh</p>
+              </div>
+            </div>
+
+            <!-- Price Section -->
+            <div class="event-card-item">
+              <div class="event-icon bg-lightblue-300">
+                <i data-lucide="bookmark"></i>
+              </div>
+              <div>
+                <h3>Price</h3>
+                <p>Rs.40000<br />(Including GST)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Card - Smaller -->
+          <div class="event-card bg-blue-gradient-vertical text-center event-card-right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; padding: 2rem 1rem;">
+            <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem; color: #fff;">Event Comforts &amp; Residentials</h3>
+            <div class="features-grid" style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 1.2rem 1.2rem;
+              width: 100%;
+              max-width: 350px;
+              margin: 0 auto;
+            ">
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="users" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Networking<br>Sessions</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="utensils" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Food &amp;<br>Snacks</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="coffee" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Refreshments</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="smile" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Family-<br>Friendly</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="party-popper" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Social<br>Mixers</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
+                <i data-lucide="toilet" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">Wash Room</span>
+              </div>
+              <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; grid-column: 1 / span 3;">
+                <i data-lucide="shield-check" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
+                <span style="color: #fff; font-size: 1rem;">All safety measures&nbsp;enabled</span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; width: 100%; margin: 2rem 0;">
+            <button id="open-register-form" class="register-btn-blue" 
+                style="padding: 12px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; background: #FFD600; color:rgb(0, 0, 0); border: none; cursor: pointer; transition: background 0.2s; display: inline-block; text-align: center; text-decoration: none;"
+                onclick="document.getElementById('register-modal-event').style.display='block';document.body.style.overflow='hidden';">
+                Register Now
+            </button>
+        </div>
+
+        <!-- Registration Modal -->
+        <div id="register-modal-event" class="modal">
+          <div class="modal-content" style="max-width: 400px; padding: 20px;">
+            <span class="close-modal" onclick="document.getElementById('register-modal-event').style.display='none';document.body.style.overflow='auto';">&times;</span>
+            <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Registration Form</h2>
+            <form id="registration-form" enctype="multipart/form-data" style="font-size: 0.9rem;">
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="name" style="font-size: 0.9rem;">Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="email" style="font-size: 0.9rem;">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="phone" style="font-size: 0.9rem;">Contact <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required style="height: 32px; padding: 4px 8px;">
+              </div>
+              
+             
+              
+              
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label for="city" style="font-size: 0.9rem;">City <span class="required">*</span></label>
+                <input type="text" id="city" name="city" required style="height: 32px; padding: 4px 8px;">
+              </div>
+            
+              <button type="submit" class="submit-btn" style="padding: 8px 16px; font-size: 0.9rem;">Send</button>
+            </form>
+          </div>
+        </div>
+
+            <!-- Testimonial Section -->
+    
+
+        <!-- Faculty Section -->
+        <div class="text-center mb-20">
+          <h2 class="faculty-title text-4xl font-semibold mb-4" style="margin-top: 36px;">
+            Meet Our Expert <span style="color: #ffd700;"> Faculties</span>
+          </h2>
+          <p class="faculty-desc text-3xl font-semibold mb-16">
+            Industry leaders and subject matter experts guiding you to
+            excellence
+          </p>
+        </div>
+
+        <div class="faculty-carousel-wrapper">
+          <div class="faculty-carousel" id="facultyCarousel">
+            <div class="faculty-card">
+              <img
+                src="images/image.png"
+                alt="Vijaya Kumar R"
+                class="faculty-image"
+              />
+              <h3>Dr.Bharath Sundaram</h3>
+              <p>Faculty Director</p>
+            </div>
+            <div class="faculty-card">
+              <img
+                src="images/Debasish-Mishra.png"
+                alt="Debasish Mishra"
+                class="faculty-image"
+              />
+              <h3>Dr.Debasish Mishra</h3>
+              <p>Manufacturing Engineer</p>
+            </div>
+            <div class="faculty-card">
+              <img
+                src="images/lakshmi-kumar.png"
+                alt="Lakshmi Kumar"
+                class="faculty-image"
+              />
+              <h3>Dr.Lakshmi Kumar</h3>
+              <p>Dean of IFMR</p>
+            </div>
+            <!-- Additional Faculty Cards -->
+            <div class="faculty-card">
+              <img
+                src="images/vijaya_c.jpg"
+                alt="Ananya Sharma"
+                class="faculty-image"
+              />
+              <h3>Dr.Vijaya C</h3>
+              <p>Finance Area Faculty</p>
+            </div>
+            <div class="faculty-card">
+              <img
+                src="images/Satya-Saminadan-R-S-01.png"
+                alt="Rahul Mehta"
+                class="faculty-image"
+              />
+              <h3>Dr.Satya Saminadan</h3>
+              <p>Great Lake of Institute of Management and IFMR GSB</p>
+            </div>
+            <div class="faculty-card">
+              <img
+                src="images/image2.png"
+                alt="Priya Iyer"
+                class="faculty-image"
+              />
+              <h3>Mr.Ramanathan Hariharan</h3>
+              <p>Executive Director of Professional Learning</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Speakers Section -->
+        <div class="text-center mb-20">
+          <h2 class="guest-lectures-title text-4xl font-semibold mb-4">
+            Our Guest <span style="color: #ffd700;"> Lectures </span>
+          </h2>
+          <p class="guest-lectures-desc text-4xl font-semibold mb-16">
+            For 3 day Krea Leadership&nbsp;Program
+          </p>
+        </div>
+
+        <div class="speakers-grid">
+          <div class="speaker-card">
+            <img
+              src="images/WhatsApp Image 2025-08-12 at 11.37.50_be6d8180.jpg"
+              alt="Vijay Kumar"
+              class="speaker-image"
+            />
+            <div class="speaker-overlay bg-black-overlay"></div>
+          </div>
+          <div class="speaker-card">
+            <img
+              src="images/WhatsApp Image 2025-08-12 at 11.37.51_a9f53d85.jpg"
+              alt="Vijaya Kumar"
+              class="speaker-image"
+            />
+            <div class="speaker-overlay bg-black-overlay"></div>
+          </div>
+          <div class="speaker-card">
+            <img
+              src="images/Event.jpg"
+              alt="vijay Kumar"
+              class="speaker-image"
+            />
+            <div class="speaker-overlay bg-black-overlay"></div>
+          </div>
+        </div>
+    </section>
+
+
+
+    <section class="section" style="background:rgb(0, 0, 0);">
+     <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+       <h2 class="text-4xl font-semibold text-center mb-8" style="color: #fff;">
+         <span style="color: #fff;">Watch on</span> <span style="color: #FFD600;">YouTube</span>
+       </h2>
+       <div style="display: flex; flex-direction: column; align-items: center;">
+         <div style="width: 100%; max-width: 800px; margin-bottom: 2rem;">
+           <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.3);">
+             <iframe 
+               src="https://www.youtube.com/embed/D4i6L-rats4" 
+               title="YouTube video player" 
+               frameborder="0" 
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+               allowfullscreen 
+               style="position: absolute; top:0; left:0; width:100%; height:100%;">
+             </iframe>
+           </div>
+         </div>
+         <a 
+           class="register-btn-blue" 
+           style="padding: 12px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; background: #FFD600; color:rgb(0, 0, 0); border: none; cursor: pointer; transition: background 0.2s; display: inline-block; text-align: center; text-decoration: none;"
+           href="https://rzp.io/rzp/krea25aug"
+           target="_blank"
+           rel="noopener noreferrer"
+         >
+           Register Now
+         </a>
+       </div>
+     </div>
+   </section>
+
+
+        <!-- Why Attend Section -->
+        <section class="section section-black">
+      <div class="container">
+        <h2 class="why-attend-title text-4xl font-bold text-center mb-20" style="
+          font-size: 2.5rem;
+        ">
+        Why Should You Attend This Program?
+        </h2>
+     
+ 
+        <div class="why-attend-content">
+          <!-- Certificate Image -->
+          <div class="certificate-image">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/38f2538c7395adb49ff421bb92e804c2658356f6?width=1446"
+              alt="Krea Certificate Sample"
+            />
+          </div>
+
+          <!-- Benefits List -->
+          <div class="benefits-list">
+            <div class="benefit-item">
+              <i data-lucide="book-open" class="benefit-icon"></i>
+              <p class="text-base text-white font-semibold leading-relaxed">
+                Leadership Clarity: Build the mindset and confidence needed to
+                scale your business.
+              </p>
+            </div>
+            <div class="benefit-item">
+              <i data-lucide="book-open" class="benefit-icon"></i>
+              <p class="text-base text-white font-semibold leading-relaxed">
+                Expert Insights: Learn directly from experienced entrepreneurs
+                and educators.
+              </p>
+            </div>
+            <div class="benefit-item">
+              <i data-lucide="book-open" class="benefit-icon"></i>
+              <p class="text-base text-white font-semibold leading-relaxed">
+                Peer Learning: Collaborate and grow with like-minded founders
+                and leaders.
+              </p>
+            </div>
+            <div class="benefit-item">
+              <i data-lucide="book-open" class="benefit-icon"></i>
+              <p class="text-base text-white font-semibold leading-relaxed">
+                Immersive Experience: Live and learn on the Krea University
+                campus.
+              </p>
+            </div>
+
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    
+   <!-- FAQ and Footer Section -->
+   <section class="section bg-footer-gradient">
+    <div class="container">
+      <!-- FAQ Section -->
+      <div class="faq-container">
+        <h2 class="text-4xl font-semibold text-center mb-8 faq-heading-responsive">
+          <span style="color: #fff;">Frequently Asked</span> <span style="color: #FFD600;">Question</span>
+        </h2>
+        <p class="text-2xl font-semibold text-center mb-16 text-white faq-subheading-responsive">
+          Got questions about how Magic 20 Tamil works? We've got you covered.
+        </p>
+      
+
+        <div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(0)">
+              <span>What is the 3-Day Mini MBA Executive Program?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-0"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-0">
+              <p>
+                A condensed, high-impact leadership and business learning experience for entrepreneurs, startup founders, and corporate professionals.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(1)">
+              <span>Are payment plans available?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-1"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-1">
+              <p>Yes, flexible payment options are available to make participation easier.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(2)">
+              <span>Will this program really make an impact in just 3 days?
+              </span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-2"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-2">
+              <p>Yes — the program is designed for maximum impact with practical strategies, expert mentoring, and peer learning that you can apply immediately.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(3)">
+              <span>What topics will be covered during the program?</span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-3"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-3">
+              <p>
+                The sessions will cover leadership clarity, strategic planning, team building, execution strategies, and insights from successful entrepreneurs and industry leaders.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(4)">
+              <span>Do I need prior business or MBA knowledge to join?</span>
+              <i data-lucide="chevron-down" class="chevron" id="chevron-4"></i>
+            </button>
+            <div class="faq-answer hidden" id="answer-4">
+              <p>
+                No, this program is designed for learners at all levels. Whether you’re just starting or already running a business, the content is practical, easy to follow, and results-oriented.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="footer-map">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.7755483024366!2d79.99957909999999!3d13.549356000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4d70b65347251d%3A0x3c84514e012cb2b5!2sKrea%20University!5e0!3m2!1sen!2sin!4v1754985680725!5m2!1sen!2sin" width="1200" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <!-- Contact Bar -->
+      <div class="contact-bar">
+        <div class="contact-item" style="display: inline-flex; gap: 24px; align-items: center;">
+          <a href="mailto:support@magic20.co.in" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="mail" class="contact-icon"></i>
+            <span class="contact-text">support@magic20.co.in</span>
+          </a>
+          <a href="tel:+919003681774" target="_blank" rel="noopener" aria-label="Phone" style="text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="phone" class="contact-icon" style="vertical-align: middle;"></i>
+            <span class="contact-text" style="vertical-align: middle; line-height: 1;">+91 9003681774</span>
+          </a>
+        </div>
+        <div class="contact-item">
+          <a href="https://www.instagram.com/magic20tamil?utm_source=ig_web_button_share_sheet&igsh=MXRlZWM4eTdyZzZrbA==" target="_blank" rel="noopener" aria-label="Instagram">
+            <i data-lucide="instagram" class="contact-icon"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/magic20tamil/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <i data-lucide="linkedin" class="contact-icon"></i>
+          </a>
+          <a href="https://www.facebook.com/magic20tamil/" target="_blank" rel="noopener" aria-label="Facebook">
+            <i data-lucide="facebook" class="contact-icon"></i>
+          </a>
+          <a href="https://youtu.be/D4i6L-rats4" target="_blank" rel="noopener" aria-label="YouTube">
+            <i data-lucide="youtube" class="contact-icon"></i>
+          </a>
+        </div>
+      </div>
+      </div>
+      </div>
+
+
+      
+  </section>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
