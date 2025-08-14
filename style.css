@@ -1089,7 +1089,7 @@ video.testimonial-img::-webkit-media-controls {
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #0056b3, #00a0e9);
+  background: white;
   margin: 5% auto;
   padding: 30px;
   border-radius: 15px;

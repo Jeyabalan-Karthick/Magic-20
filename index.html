@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Krea Leadership Program - 3-Day Executive Education Program</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
     <!-- Google Fonts -->
     <link
@@ -29,32 +30,71 @@
       <div class="modal-popup-content">
         <span class="close-modal" id="close-registration-popup" title="Close">&times;</span>
         <h2>Registration Form</h2>
-        <form id="registration-popup-form" method="POST" action="" enctype="multipart/form-data" autocomplete="off">
-  <input type="hidden" name="form_id" value="krea_registration">
-  <!-- Honeypot: keep hidden; bots often fill this -->
-  <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-
-  <div class="form-group">
-    <label for="popup-name">Name <span class="required">*</span></label>
-    <input type="text" id="popup-name" name="name" required>
-  </div>
-  <div class="form-group">
-    <label for="popup-email">Email <span class="required">*</span></label>
-    <input type="email" id="popup-email" name="email" required>
-  </div>
-  <div class="form-group">
-    <label for="popup-phone">Contact <span class="required">*</span></label>
-    <input type="tel" id="popup-phone" name="phone" required>
-  </div>
-  <div class="form-group">
-    <label for="popup-city">City <span class="required">*</span></label>
-    <input type="text" id="popup-city" name="city" required>
-  </div>
-  <button type="submit" class="submit-btn">Send</button>
-</form>
-
+        <form id="registration-popup-form" autocomplete="off">
+  
+          <!-- FormSubmit helpers -->
+          <input type="hidden" name="_subject" value="Krea Program">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <!-- after success redirect (optional but useful to confirm) -->
+          <input type="hidden" name="_next" value="https://example.com/thank-you.html">
+          <!-- official honeypot: must remain empty -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <!-- Custom message for email body -->
+          <input type="hidden" name="_body" value="The form is submitted on the Krea landing page.">
+        
+          <div class="form-group">
+            <label for="popup-name">Name <span class="required">*</span></label>
+            <input type="text" id="popup-name" name="name" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="popup-email">Email <span class="required">*</span></label>
+            <input type="email" id="popup-email" name="email" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="popup-phone">Contact <span class="required">*</span></label>
+            <input type="tel" id="popup-phone" name="phone" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="popup-city">City <span class="required">*</span></label>
+            <input type="text" id="popup-city" name="city" required>
+          </div>
+        
+          <button type="submit" class="submit-btn">Send</button>
+        </form>
       </div>
     </div>
+    <script>
+      // Custom JS to POST form data to FormSubmit and ensure mail goes to the given mail id
+      document.getElementById('registration-popup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // Change this to your FormSubmit endpoint
+        const endpoint = "https://formsubmit.co/dhinesh.m@magic20.co.in";
+
+        fetch(endpoint, {
+          method: "POST",
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = form.querySelector('input[name="_next"]').value;
+          } 
+          // No alert on error as per instructions
+        })
+        .catch(() => {
+          // No alert on error as per instructions
+        });
+      });
+    </script>
 
 
     <!-- Fixed Countdown Header -->
@@ -323,7 +363,7 @@
               </div>
               <div class="feature-item" style="display: flex; flex-direction: column; align-items: center;">
                 <i data-lucide="toilet" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
-                <span style="color: #fff; font-size: 1rem;">Residential in campus</span>
+                <span style="color: #fff; font-size: 1rem;">Wash Room</span>
               </div>
               <div class="feature-item" style="display: flex; flex-direction: column; align-items: center; grid-column: 1 / span 3;">
                 <i data-lucide="shield-check" style="color: #fff; font-size: 2rem; margin-bottom: 0.3rem;"></i>
@@ -336,38 +376,125 @@
 
         <div style="display: flex; justify-content: center; width: 100%; margin: 2rem 0;">
             <button id="open-register-form" class="register-btn-blue" 
-                style="padding: 12px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; background: #FFD600; color:rgb(0, 0, 0); border: none; cursor: pointer; transition: background 0.2s; display: inline-block; text-align: center; text-decoration: none;"
-                onclick="document.getElementById('register-modal-event').style.display='block';document.body.style.overflow='hidden';">
+                style="padding: 12px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 8px; background: #FFD600; color:rgb(0, 0, 0); border: none; cursor: pointer; transition: background 0.2s; display: inline-block; text-align: center; text-decoration: none;">
                 Register Now
             </button>
         </div>
+        <style>
+          /* Center the popup modal on the screen */
+          #registration-popup-modal.modal-popup-overlay {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+          }
+          #registration-popup-modal.active {
+            display: flex !important;
+          }
+          .modal-popup-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 90vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            position: relative;
+            color: #222;
+            margin: 0;
+            left: 0;
+            top: 0;
+            transform: none;
+          }
+          .close-modal {
+            color: #222;
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2;
+          }
+          @media (max-width: 500px) {
+            .modal-popup-content {
+              padding: 18px 6px;
+              max-width: 98vw;
+            }
+          }
+        </style>
+        <script>
+          // Show the registration popup modal on page load
+          window.addEventListener('DOMContentLoaded', function() {
+            var popup = document.getElementById('registration-popup-modal');
+            if (popup) {
+              popup.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            }
+          });
+
+          // When Register Now button is clicked, show the registration popup modal
+          document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('open-register-form');
+            var popup = document.getElementById('registration-popup-modal');
+            if (btn && popup) {
+              btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                popup.classList.add('active');
+                document.body.style.overflow = 'hidden';
+              });
+            }
+          });
+
+          // Close modal logic
+          document.addEventListener('DOMContentLoaded', function() {
+            var closeBtn = document.getElementById('close-registration-popup');
+            var popup = document.getElementById('registration-popup-modal');
+            if (closeBtn && popup) {
+              closeBtn.addEventListener('click', function() {
+                popup.classList.remove('active');
+                document.body.style.overflow = 'auto';
+              });
+            }
+          });
+        </script>
 
         <!-- Registration Modal -->
         <div id="register-modal-event" class="modal">
           <div class="modal-content" style="max-width: 400px; padding: 20px;">
             <span class="close-modal" onclick="document.getElementById('register-modal-event').style.display='none';document.body.style.overflow='auto';">&times;</span>
-            <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Registration Form</h2>
-            <form id="registration-form" enctype="multipart/form-data" style="font-size: 0.9rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 15px;color: blue;">Registration Form</h2>
+            <form id="registration-form" autocomplete="off" style="font-size: 0.9rem;">
+              <!-- FormSubmit helpers -->
+              <input type="hidden" name="_subject" value="Krea Program">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="https://example.com/thank-you.html">
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+              <input type="hidden" name="_body" value="The form is submitted on the Krea landing page.">
+
               <div class="form-group" style="margin-bottom: 12px;">
-                <label for="name" style="font-size: 0.9rem;">Name <span class="required">*</span></label>
+                <label for="name" style="font-size: 0.9rem;color: rgb(0, 0, 0);">Name <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required style="height: 32px; padding: 4px 8px;">
               </div>
               
               <div class="form-group" style="margin-bottom: 12px;">
-                <label for="email" style="font-size: 0.9rem;">Email <span class="required">*</span></label>
+                <label for="email" style="font-size: 0.9rem;color: rgb(0, 0, 0);">Email <span class="required">*</span></label>
                 <input type="email" id="email" name="email" required style="height: 32px; padding: 4px 8px;">
               </div>
               
               <div class="form-group" style="margin-bottom: 12px;">
-                <label for="phone" style="font-size: 0.9rem;">Contact <span class="required">*</span></label>
+                <label for="phone" style="font-size: 0.9rem;color: rgb(0, 0, 0);">Contact <span class="required">*</span></label>
                 <input type="tel" id="phone" name="phone" required style="height: 32px; padding: 4px 8px;">
               </div>
               
-             
-              
-              
               <div class="form-group" style="margin-bottom: 12px;">
-                <label for="city" style="font-size: 0.9rem;">City <span class="required">*</span></label>
+                <label for="city" style="font-size: 0.9rem;color: rgb(0, 0, 0);">City <span class="required">*</span></label>
                 <input type="text" id="city" name="city" required style="height: 32px; padding: 4px 8px;">
               </div>
             
@@ -375,6 +502,72 @@
             </form>
           </div>
         </div>
+
+        <!-- Registration Success Popup Modal (like above registration-popup-modal) -->
+        <div id="registration-popup-modal" class="modal-popup-overlay" style="display:none;">
+          <div class="modal-popup-content">
+            <span class="close-modal" id="close-registration-popup" title="Close" style="cursor:pointer;">&times;</span>
+            <h2>Registration Successful</h2>
+            <p>Thank you for registering! We have received your details.</p>
+          </div>
+        </div>
+
+        <script>
+          // Custom JS to POST form data to FormSubmit and show popup on success
+          document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Change this to your FormSubmit endpoint
+            const endpoint = "https://formsubmit.co/dhinesh.m@magic20.co.in";
+
+            fetch(endpoint, {
+              method: "POST",
+              body: formData,
+              headers: {
+                'Accept': 'application/json'
+              }
+            })
+            .then(response => {
+              if (response.ok) {
+                // Hide the registration modal
+                document.getElementById('register-modal-event').style.display = 'none';
+                document.body.style.overflow = 'auto';
+                // Show the popup modal (like above)
+                document.getElementById('registration-popup-modal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                // Optionally reset the form
+                form.reset();
+              } 
+              // No alert on error as per instructions
+            })
+            .catch(() => {
+              // No alert on error as per instructions
+            });
+          });
+
+          // Close popup modal logic
+          document.addEventListener('DOMContentLoaded', function() {
+            var closeBtn = document.getElementById('close-registration-popup');
+            if (closeBtn) {
+              closeBtn.onclick = function() {
+                document.getElementById('registration-popup-modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+              };
+            }
+            // Also close popup if user clicks outside modal content
+            var popupModal = document.getElementById('registration-popup-modal');
+            if (popupModal) {
+              popupModal.onclick = function(event) {
+                if (event.target === popupModal) {
+                  popupModal.style.display = 'none';
+                  document.body.style.overflow = 'auto';
+                }
+              };
+            }
+          });
+        </script>
 
             <!-- Testimonial Section -->
     
@@ -740,5 +933,6 @@
 
   <!-- External JavaScript -->
   <script src="script.js"></script>
+
 </body>
 </html>
